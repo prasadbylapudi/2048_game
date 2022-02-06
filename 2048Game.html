@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>2048 Game</title>
+        <style>
+            #field{
+                border: 1px solid black;
+            }
+            .square{
+                border: 1px solid black;
+                text-align: center;
+                width:100px;
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 align="center">2018 game</h1>
+        <table id="field"></table>
+        </h1>
+        <script>
+            var width=4;
+            var height=4;
+            var htmlElements;
+            function createField()
+            {
+                if(htmlElements){
+                    return
+                }
+                htmlElements=[];
+                var table=document.getElementById('field');
+
+                for(var y=0;y<height;y++)
+                {
+                   var table_row=document.createElement('tr');
+                   var tableRowElements=[]
+                   
+                   for(var x=0;x<width;x++)
+                   {
+                       var table_data=document.createElement('td');
+                       table_data.setAttribute('class','square');
+                        table_row.appendChild(table_data);
+                        tableRowElements.push(table_data);
+
+                   }
+                   htmlElements.push(tableRowElements);
+                   table.appendChild(table_row)
+                }
+            }
+
+            function init()
+            {
+                createField();
+            }
+            init();
+        </script>
+    </body>
+</html>
