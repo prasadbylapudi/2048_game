@@ -1,12 +1,13 @@
 <html>
     <head>
-        <title>2048 Game</title>
+        <title>2048 game</title>
+        <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
         <style>
             #field{
                 border: 1px solid black;
             }
             .square{
-                border: 1px solid black;
+                border: 1px solid rgb(24, 20, 20);
                 text-align: center;
                 width:100px;
                 height: 100px;
@@ -14,13 +15,18 @@
         </style>
     </head>
     <body>
-        <h1 align="center">2018 game</h1>
-        <table id="field"></table>
+        <h1 align="center">2048 game</h1>
+            <div class="main-grid">
+                <table id="field"></table>
+            </div>
         </h1>
+        
         <script>
+
             var width=4;
             var height=4;
             var htmlElements;
+            var cells;
             function createField()
             {
                 if(htmlElements){
@@ -47,11 +53,49 @@
                 }
             }
 
+            function createCells()
+            {
+                cells=[];
+                for(var y=0;y<height;y++)
+                {
+                    cells.push(new Array(height).fill(0));
+                }
+            }
+
+            function generateEmptyCells()
+            {
+                
+                var x,y;
+                do{
+                    x=Math.floor(Math.random()*height,y=Math.floor(Math.random()*height));
+                    if(cells[x][y]==0){
+                        cells[y][x]=Math.random()>=0.9 ?4:2;
+                        break;
+                    }
+                } while (true);
+                
+            }
+            
+            function draw() {
+                for (var y = 0; y < height; y++) {
+                    for (var x = 0; x < width; x++) {
+                        var table_data = htmlElements[y][x];
+                        var v = cells[y][x];
+                        table_data.innerHTML = v == 0 ? '' : String(v);
+                    }
+                }
+            }
+
             function init()
             {
                 createField();
+                createCells();
+                new Array(3).fill(0).forEach(generateEmptyCells);
+                draw();
             }
             init();
+
+
         </script>
     </body>
 </html>
