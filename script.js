@@ -2,7 +2,7 @@ var size = 4
 var htmlElements
 var cells
 
-function createField() {
+const createField = () => {
   if (htmlElements) {
     return
   }
@@ -22,14 +22,14 @@ function createField() {
   }
 }
 
-function createCells() {
+const createCells = () => {
   cells = []
   for (var y = 0; y < size; y++) {
     cells.push(new Array(size).fill(0))
   }
 }
 
-function generateInEmptyCell() {
+const generateInEmptyCell = () => {
   var x, y
   do {
     ;(x = Math.floor(Math.random() * size)),
@@ -41,7 +41,7 @@ function generateInEmptyCell() {
   } while (true)
 }
 
-function draw() {
+const draw = () => {
   for (var y = 0; y < size; y++) {
     for (var x = 0; x < size; x++) {
       var td = htmlElements[y][x]
@@ -51,15 +51,15 @@ function draw() {
         td.setAttribute('style', 'background-color: white')
       } else {
         var h = 20 + 24 * Math.log2(2048 / v)
-        td.setAttribute('style', 'background-color: hsl(' + h + ', 100%, 50%)')
+        td.setAttribute('style', 'background-color: hsl(' + h + ', 100%, 70%)')
       }
     }
   }
 }
 
-function slide(array, size) {
+const slide = (array, size) => {
   // [0, 2, 2, 2] => [2, 2, 2] => [4, 0, 2] => [4, 2] => [4, 2, 0, 0]
-  function filterEmpty(a) {
+  const filterEmpty = (a) => {
     return a.filter((x) => x != 0)
   }
 
@@ -79,7 +79,7 @@ function slide(array, size) {
   return array
 }
 
-function slideLeft() {
+const slideLeft = () => {
   var changed = false
   for (var y = 0; y < size; y++) {
     var old = Array.from(cells[y])
@@ -89,13 +89,13 @@ function slideLeft() {
   return changed
 }
 
-function swap(x1, y1, x2, y2) {
+const swap = (x1, y1, x2, y2) => {
   var tmp = cells[y1][x1]
   cells[y1][x1] = cells[y2][x2]
   cells[y2][x2] = tmp
 }
 
-function mirror() {
+const mirror = () => {
   for (var y = 0; y < size; y++) {
     for (var xLeft = 0, xRight = size - 1; xLeft < xRight; xLeft++, xRight--) {
       swap(xLeft, y, xRight, y)
@@ -103,7 +103,7 @@ function mirror() {
   }
 }
 
-function transpose() {
+const transpose = () => {
   for (var y = 0; y < size; y++) {
     for (var x = 0; x < y; x++) {
       swap(x, y, y, x)
@@ -111,32 +111,32 @@ function transpose() {
   }
 }
 
-function moveLeft() {
+const moveLeft = () => {
   return slideLeft()
 }
 
-function moveRight() {
+const moveRight = () => {
   mirror()
   var changed = moveLeft()
   mirror()
   return changed
 }
 
-function moveUp() {
+const moveUp = () => {
   transpose()
   var changed = moveLeft()
   transpose()
   return changed
 }
 
-function moveDown() {
+const moveDown = () => {
   transpose()
   var changed = moveRight()
   transpose()
   return changed
 }
 
-function isGameOver() {
+const isGameOver = () => {
   for (var y = 0; y < size; y++) {
     for (var x = 0; x < size; x++) {
       if (cells[y][x] == 0) {
@@ -186,7 +186,7 @@ document.addEventListener('keydown', function (e) {
   }
 })
 
-function init() {
+const init = () => {
   createField()
   createCells()
   new Array(3).fill(0).forEach(generateInEmptyCell)
