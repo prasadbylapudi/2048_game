@@ -1,101 +1,23 @@
 <html>
-    <head>
-        <title>2048 game</title>
-        <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
-        <style>
-            #field{
-                border: 1px solid black;
-            }
-            .square{
-                border: 1px solid rgb(24, 20, 20);
-                text-align: center;
-                width:100px;
-                height: 100px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1 align="center">2048 game</h1>
-            <div class="main-grid">
-                <table id="field"></table>
-            </div>
-        </h1>
-        
-        <script>
+  <head>
+    <title>2048</title>
 
-            var width=4;
-            var height=4;
-            var htmlElements;
-            var cells;
-            function createField()
-            {
-                if(htmlElements){
-                    return
-                }
-                htmlElements=[];
-                var table=document.getElementById('field');
-
-                for(var y=0;y<height;y++)
-                {
-                   var table_row=document.createElement('tr');
-                   var tableRowElements=[]
-                   
-                   for(var x=0;x<width;x++)
-                   {
-                       var table_data=document.createElement('td');
-                       table_data.setAttribute('class','square');
-                        table_row.appendChild(table_data);
-                        tableRowElements.push(table_data);
-
-                   }
-                   htmlElements.push(tableRowElements);
-                   table.appendChild(table_row)
-                }
-            }
-
-            function createCells()
-            {
-                cells=[];
-                for(var y=0;y<height;y++)
-                {
-                    cells.push(new Array(height).fill(0));
-                }
-            }
-
-            function generateEmptyCells()
-            {
-                
-                var x,y;
-                do{
-                    x=Math.floor(Math.random()*height,y=Math.floor(Math.random()*height));
-                    if(cells[x][y]==0){
-                        cells[y][x]=Math.random()>=0.9 ?4:2;
-                        break;
-                    }
-                } while (true);
-                
-            }
-            
-            function draw() {
-                for (var y = 0; y < height; y++) {
-                    for (var x = 0; x < width; x++) {
-                        var table_data = htmlElements[y][x];
-                        var v = cells[y][x];
-                        table_data.innerHTML = v == 0 ? '' : String(v);
-                    }
-                }
-            }
-
-            function init()
-            {
-                createField();
-                createCells();
-                new Array(3).fill(0).forEach(generateEmptyCells);
-                draw();
-            }
-            init();
-
-
-        </script>
-    </body>
+    <style>
+      #field {
+        border: 1px solid black;
+      }
+      .cell {
+        border: 1px solid black;
+        font-style: 
+        color: white;
+        text-align: center;
+        width: 80px;
+        height: 80px;
+      }
+    </style>
+    <script defer src="./script.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <table id="field"></table>
+  </body>
 </html>
